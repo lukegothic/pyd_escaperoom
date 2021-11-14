@@ -6,7 +6,7 @@ const style = {
   flex: 1
 };
 
-function Map({ markersData }) {
+function Map({ markersData, userPreferences, setActiveCompany, setActiveProvince }) {
   // create map
   const mapRef = useRef(null);
   useEffect(() => {
@@ -32,8 +32,6 @@ function Map({ markersData }) {
     fillOpacity: 0.3
   };
 
-  const computedStyle = 
-
   useEffect(() => {
     markerLayerRef.current = L.layerGroup().addTo(mapRef.current);
   }, []);
@@ -41,15 +39,8 @@ function Map({ markersData }) {
   // update markers
   useEffect(
     () => {
-      /*
-      markerLayerRef.current.clearLayers();
-      markersData.forEach(marker => {
-        L.marker(marker.latLng, { title: marker.title }).addTo(
-          markerLayerRef.current
-        );
-      });
-      */
      if (markersData) {
+        // cruzar companias por provincia
         let marker_x_prov = {};
         markersData.forEach(marker => {
           if (marker_x_prov[marker.city.province.id] === undefined) {
@@ -57,7 +48,7 @@ function Map({ markersData }) {
           }
           marker_x_prov[marker.city.province.id].push(marker);
         });
-
+        // asignar companias a cada provincia
         Object.keys(marker_x_prov).forEach(prov => {
           const provfeat = limites_provincias.features.find(p => p.properties.id === prov || p.properties.child_ids && p.properties.child_ids.indexOf(prov) !== -1);
           if (provfeat) {
@@ -66,6 +57,7 @@ function Map({ markersData }) {
             console.log(prov);
           }
         });
+        // generar capa limites
         limitLayerRef.current = 
           L.geoJSON(limites_provincias, { 
             style: (f) => {
@@ -76,22 +68,26 @@ function Map({ markersData }) {
               } : baseStyle;
             }, 
             filter: (f) => {
+              // ocultar la provincia que esta focus... no funciona hay que hacerlo con setStyle por ejemplo
               return f && !f.properties.focused;
             }}).on("click", function (e) {
+                  // al hacer clic en provincia, mostrar las companies de esa provincia
                   mapRef.current.fitBounds(e.sourceTarget.getBounds());
+                  setActiveProvince(e.sourceTarget.feature.properties.id);
                   markerLayerRef.current.clearLayers();
                   if (e.sourceTarget.feature.properties.companies) {
                     e.sourceTarget.feature.properties.companies.forEach(marker => {
-                      L.marker(L.latLng(marker.latitude, marker.longitude), { title: marker.title, id: marker.id }).addTo(
-                        markerLayerRef.current
-                      );
+                      L.marker(L.latLng(marker.latitude, marker.longitude), 
+                        { title: marker.name, id: marker.id, riseOnHover: true })
+                        .on("click", function (e) {
+                          setActiveCompany(e.sourceTarget.options.id);
+                        })
+                        .addTo(markerLayerRef.current);
                     });                    
                   }                  
                 })
                 .addTo(mapRef.current)
-                .bindTooltip(function (layer) {
-                  return `${layer.feature.properties.name}\n${layer.feature.properties.companies ? layer.feature.properties.companies.length : "No hay "} escapes`;
-                });
+                .bindTooltip(l => `${l.feature.properties.name}\n${l.feature.properties.companies ? l.feature.properties.companies.length : "No hay "} escapes`);
       }
     },
     [markersData]

@@ -1,5 +1,5 @@
 import React from "react";
-function Panel({ markersData }) {
+function Panel({ markersData, activeCompany, setActiveCompany, activeProvince }) {
     /*
     return <div><ul>
     Markers data:
@@ -10,6 +10,14 @@ function Panel({ markersData }) {
     ))}
   </ul></div>;
   */
-    return <div style={{flexBasis: "25%"}}>{markersData && markersData.length}</div>;
+ // 3 componentes
+ // filtros
+ // compañia activa
+ // lista completa
+    return <div style={{flexBasis: "25%"}}>
+      {markersData && markersData.length}
+      {activeProvince && activeProvince}
+      {activeCompany && activeCompany}
+    </div>;
 }
 export default Panel;
