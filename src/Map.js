@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import L, { map } from "leaflet";
 import limites_provincias from './ES_limites_provincias';
+import { CompanyGamesTooltip, CompanyXProvince, FindCompany } from "./functions/CompanyHelpers";
 
 const style = {
   flex: 1
@@ -41,18 +42,12 @@ function Map({ markersData, userPreferences, setActiveCompany, setActiveProvince
     () => {
      if (markersData) {
         // cruzar companias por provincia
-        let marker_x_prov = {};
-        markersData.forEach(marker => {
-          if (marker_x_prov[marker.city.province.id] === undefined) {
-            marker_x_prov[marker.city.province.id] = [];
-          }
-          marker_x_prov[marker.city.province.id].push(marker);
-        });
+        const company_x_province = CompanyXProvince(markersData);
         // asignar companias a cada provincia
-        Object.keys(marker_x_prov).forEach(prov => {
+        Object.keys(company_x_province).forEach(prov => {
           const provfeat = limites_provincias.features.find(p => p.properties.id === prov || p.properties.child_ids && p.properties.child_ids.indexOf(prov) !== -1);
           if (provfeat) {
-            provfeat.properties.companies = marker_x_prov[prov];
+            provfeat.properties.companies = company_x_province[prov];
           } else {
             console.log(prov);
           }
@@ -78,16 +73,16 @@ function Map({ markersData, userPreferences, setActiveCompany, setActiveProvince
                   if (e.sourceTarget.feature.properties.companies) {
                     e.sourceTarget.feature.properties.companies.forEach(marker => {
                       L.marker(L.latLng(marker.latitude, marker.longitude), 
-                        { title: marker.name, id: marker.id, riseOnHover: true })
+                        { title: CompanyGamesTooltip(marker), id: marker.id, riseOnHover: true })
                         .on("click", function (e) {
-                          setActiveCompany(e.sourceTarget.options.id);
+                          setActiveCompany(FindCompany(markersData, e.sourceTarget.options.id));
                         })
                         .addTo(markerLayerRef.current);
                     });                    
                   }                  
                 })
                 .addTo(mapRef.current)
-                .bindTooltip(l => `${l.feature.properties.name}\n${l.feature.properties.companies ? l.feature.properties.companies.length : "No hay "} escapes`);
+                .bindTooltip(l => `${l.feature.properties.name}\n${l.feature.properties.companies ? l.feature.properties.companies.length : "No hay "} salas`);
       }
     },
     [markersData]

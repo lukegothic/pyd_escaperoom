@@ -1,5 +1,9 @@
 import React from "react";
-function Panel({ markersData, activeCompany, setActiveCompany, activeProvince }) {
+import CompanyDetail from "./CompanyDetail";
+import CompanyList from "./CompanyList";
+import FilterPanel from "./FilterPanel";
+import Summary from "./Summary";
+function Panel({ markersData, userPreferences, activeCompany, setActiveCompany, activeProvince }) {
     /*
     return <div><ul>
     Markers data:
@@ -15,9 +19,10 @@ function Panel({ markersData, activeCompany, setActiveCompany, activeProvince })
  // compañia activa
  // lista completa
     return <div style={{flexBasis: "25%"}}>
-      {markersData && markersData.length}
-      {activeProvince && activeProvince}
-      {activeCompany && activeCompany}
+      <FilterPanel />
+      {markersData && userPreferences && <Summary markersData={markersData} userPreferences={userPreferences} />}
+      {activeCompany && <CompanyDetail company={activeCompany} />}
+      {markersData && <CompanyList companies={markersData} province={activeProvince} />}
     </div>;
 }
 export default Panel;

@@ -1,6 +1,6 @@
 export default class UserPreferences {
-    constructor({test = "test", escapeRooms = []}) {
+    constructor({test = "test", rooms = []}) {
         this.test = test;
-        this.escapeRooms = escapeRooms;
+        this.rooms = rooms;
     }
 }

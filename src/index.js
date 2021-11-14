@@ -23,8 +23,17 @@ function App() {
   }, []);
 
   return <Wrapper>
-      <Map markersData={markersData} userPreferences={userPreferences} setActiveCompany={setActiveCompany} setActiveProvince={setActiveProvince} />
-      <Panel markersData={markersData} activeCompany={activeCompany} setActiveCompany={setActiveCompany} activeProvince={activeProvince} />
+      <Map
+        markersData={markersData}
+        userPreferences={userPreferences}
+        setActiveCompany={setActiveCompany}
+        setActiveProvince={setActiveProvince} />
+      <Panel
+        markersData={markersData}
+        userPreferences={userPreferences}
+        activeCompany={activeCompany}
+        setActiveCompany={setActiveCompany}
+        activeProvince={activeProvince} />
   </Wrapper>;
 }
 
