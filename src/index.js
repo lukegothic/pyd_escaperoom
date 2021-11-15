@@ -27,7 +27,9 @@ function App() {
         <Map
             markersData={markersData}
             userGames={userGames}
+            activeCompany={activeCompany}
             setActiveCompany={setActiveCompany}
+            activeProvince={activeProvince}
             setActiveProvince={setActiveProvince} />
         <Panel
             markersData={markersData}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import L, { map } from "leaflet";
 import limites_provincias from './ES_limites_provincias';
 import { CompanyGamesTooltip, CompanyXProvince, FindCompany } from "./functions/CompanyHelpers";
@@ -7,7 +7,8 @@ const style = {
   flex: 1
 };
 
-function Map({ markersData, userGames, setActiveCompany, setActiveProvince }) {
+function Map({ markersData, userGames, activeCompany, setActiveCompany, activeProvince, setActiveProvince }) {
+  const [mapProvince, setMapProvince] = useState(null);
   // create map
   const mapRef = useRef(null);
   useEffect(() => {
@@ -33,9 +34,40 @@ function Map({ markersData, userGames, setActiveCompany, setActiveProvince }) {
     fillOpacity: 0.3
   };
 
+  const focusMap = ({ province, company }) => {
+    province = province || company.city.province.id;
+    if (province !== mapProvince) {
+      setMapProvince(province);
+      const provinceGEOJSON = limites_provincias.features.find(p => p.properties.id === province);
+      mapRef.current.fitBounds(L.geoJSON(provinceGEOJSON).getBounds());
+      markerLayerRef.current.clearLayers();
+      if (provinceGEOJSON.properties.companies) {
+        provinceGEOJSON.properties.companies.forEach(company => {
+          L.marker(L.latLng(company.latitude, company.longitude), 
+            { title: CompanyGamesTooltip(company), id: company.id, riseOnHover: true })
+            .on("click", function (e) {
+              setActiveCompany(FindCompany(markersData, e.sourceTarget.options.id));
+            })
+            .addTo(markerLayerRef.current);
+        });                    
+      }
+    }
+    if (company) {
+      mapRef.current.setView(L.latLng(company.latitude, company.longitude), 10);
+    }
+  }
+
   useEffect(() => {
     markerLayerRef.current = L.layerGroup().addTo(mapRef.current);
   }, []);
+
+  useEffect(() => {
+    activeProvince && focusMap({ province: activeProvince });
+  }, [activeProvince]);
+
+  useEffect(() => {
+    activeCompany && focusMap({ company: activeCompany });
+  }, [activeCompany]);
 
   // update markers
   useEffect(
@@ -67,19 +99,8 @@ function Map({ markersData, userGames, setActiveCompany, setActiveProvince }) {
               return f && !f.properties.focused;
             }}).on("click", function (e) {
                   // al hacer clic en provincia, mostrar las companies de esa provincia
-                  mapRef.current.fitBounds(e.sourceTarget.getBounds());
                   setActiveProvince(e.sourceTarget.feature.properties.id);
-                  markerLayerRef.current.clearLayers();
-                  if (e.sourceTarget.feature.properties.companies) {
-                    e.sourceTarget.feature.properties.companies.forEach(marker => {
-                      L.marker(L.latLng(marker.latitude, marker.longitude), 
-                        { title: CompanyGamesTooltip(marker), id: marker.id, riseOnHover: true })
-                        .on("click", function (e) {
-                          setActiveCompany(FindCompany(markersData, e.sourceTarget.options.id));
-                        })
-                        .addTo(markerLayerRef.current);
-                    });                    
-                  }                  
+                  //focusMap({ province: e.sourceTarget.feature });
                 })
                 .addTo(mapRef.current)
                 .bindTooltip(l => `${l.feature.properties.name}\n${l.feature.properties.companies ? l.feature.properties.companies.length : "No hay "} salas`);

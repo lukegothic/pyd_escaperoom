@@ -1,6 +1,6 @@
 import React from "react";
 function CompanyHeader({ company, setActiveCompany }) {
-    return <div style={{/*display:"flex", flexWrap:"nowrap"*/}} onClick={() => setActiveCompany(company)}>
+    return <div style={{/*display:"flex", flexWrap:"nowrap"*/}} onClick={() => setActiveCompany && setActiveCompany(company)}>
         <div>{company.name}</div>
         {company.opinion_count > 0 && <div> {company.rating} de {company.opinion_count} reseñas</div>}
         <div>{company.games.length} salas</div>

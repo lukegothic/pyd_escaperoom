@@ -5,16 +5,6 @@ import FilterPanel from "./FilterPanel";
 import CompanySummary from "./CompanySummary";
 import UserSummary from "./UserSummary";
 function Panel({ markersData, userGames, activeCompany, setActiveCompany, activeProvince }) {
-    /*
-    return <div><ul>
-    Markers data:
-    {markersData.map(marker => (
-      <li key={marker.id}>
-        {marker.title}, lat: {marker.latLng.lat}, lng: {marker.latLng.lng},
-      </li>
-    ))}
-  </ul></div>;
-  */
  // 3 componentes
  // filtros
  // compañia activa
