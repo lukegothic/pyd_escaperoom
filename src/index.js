@@ -3,38 +3,39 @@ import { render } from "react-dom";
 import Map from "./Map";
 import Panel from "./Panel";
 import Wrapper from "./Wrapper";
-import UserPreferencesRepository from "./repositories/UserPreferencesRepository";
+import { } from "./repositories/UserPreferencesRepository";
 import EscapeRoomRepository from "./repositories/EscapeRoomRepository";
+import { getRooms } from "./repositories/UserGamesRepository";
 
 function App() {
-  const [markersData, setMarkersData] = useState(null);
-  const [activeProvince, setActiveProvince] = useState(null);
-  const [activeCompany, setActiveCompany] = useState(null);
-  const [userPreferences, setUserPreferences] = useState(null);
+    const [markersData, setMarkersData] = useState(null);
+    const [activeProvince, setActiveProvince] = useState(null);
+    const [activeCompany, setActiveCompany] = useState(null);
+    const [userGames, setUserGames] = useState(null);
 
-  useEffect(() => {
-    (async () => {
-      const companies = await EscapeRoomRepository.get();
-      console.log(companies);
-      setMarkersData(companies);
-      const userPreferences = await UserPreferencesRepository.get();
-      setUserPreferences(userPreferences);
-    })();
-  }, []);
+    useEffect(() => {
+        (async () => {
+            const companies = await EscapeRoomRepository.get();
+            console.log(companies);
+            setMarkersData(companies);
+            const dbUserGames = await getRooms();
+            setUserGames(dbUserGames);
+        })();
+    }, []);
 
-  return <Wrapper>
-      <Map
-        markersData={markersData}
-        userPreferences={userPreferences}
-        setActiveCompany={setActiveCompany}
-        setActiveProvince={setActiveProvince} />
-      <Panel
-        markersData={markersData}
-        userPreferences={userPreferences}
-        activeCompany={activeCompany}
-        setActiveCompany={setActiveCompany}
-        activeProvince={activeProvince} />
-  </Wrapper>;
+    return <Wrapper>
+        <Map
+            markersData={markersData}
+            userGames={userGames}
+            setActiveCompany={setActiveCompany}
+            setActiveProvince={setActiveProvince} />
+        <Panel
+            markersData={markersData}
+            userGames={userGames}
+            activeCompany={activeCompany}
+            setActiveCompany={setActiveCompany}
+            activeProvince={activeProvince} />
+    </Wrapper>;
 }
 
 render(<App />, document.getElementById("root"));

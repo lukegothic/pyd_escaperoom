@@ -8,6 +8,7 @@
   "dependencies": {
     "cors-anywhere": "^0.4.4",
     "crypto-js": "^4.1.1",
+    "firebase": "^9.4.1",
     "leaflet": "latest",
     "react": "16.7.0-alpha.0 - next",
     "react-dom": "16.7.0-alpha.0 - next"

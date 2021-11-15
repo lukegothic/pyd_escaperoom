@@ -7,7 +7,7 @@ const style = {
   flex: 1
 };
 
-function Map({ markersData, userPreferences, setActiveCompany, setActiveProvince }) {
+function Map({ markersData, userGames, setActiveCompany, setActiveProvince }) {
   // create map
   const mapRef = useRef(null);
   useEffect(() => {

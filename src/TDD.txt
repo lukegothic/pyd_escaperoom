@@ -1,7 +1,7 @@
 
 // TODO:
 // PARTE 1: MAPA
-// 1.1 mapa españa 
+// 1.1 mapa españa
 // 1.2 provincias (vision pajaro) + simbología
 // 1.3 labels
 // 1.3.1 numero de escape rooms
@@ -32,16 +32,163 @@
 // 3.1 diseño (copy google)
 // 3.2 integrar
 
-/*
-    const k = UserPreferencesRepository.get();
-    console.log(k);
-    const newescapes = addEscapeRoom(k.escapeRooms, new EscapeRoom("chuca", EscapeRoomStatus.PLAYED, true));
-    const b = UserPreferencesRepository.set({...k, escapeRooms: newescapes});
-    console.log(b);
-    */
     // https://www.escaperoomlover.com/api/es/public/city/all
     // https://www.escaperoomlover.com/api/es/public/games/category/all
     // https://www.escaperoomlover.com/api/es/public/games/audience/all
     // https://www.escaperoomlover.com/api/es/public/games/theme/all
     // https://www.escaperoomlover.com/api/es/public/games/difficulty/all
     // EN PRUEBAS: siempre usar cache
+
+    // https://www.escaperoomlover.com/storage/files/*.jpg
+    // https://www.escaperoomlover.com/es/juego/clue-hunter-0-madrid-atrapados-en-el-sotano
+
+
+    SAMPLE COMPANY
+
+
+    {
+    "id": "dE0BUKHb1511885859.3465",
+    "name": "Lock-Clock",
+    "email": "info@lock-clock.com",
+    "phone": 930246931,
+    "address": "Ptge.Patriarca 4",
+    "web_page": "https://lock-clock.com/",
+    "trip_advisor": "https://www.tripadvisor.es/Attraction_Review-g187497-d10060248-Reviews-Lock_Clock_Barcelona_Escape_Room-Barcelona_Catalonia.html",
+    "facebook": "https://www.facebook.com/lockclock.bcn",
+    "latitude": 41.38612,
+    "longitude": 2.1737,
+    "local_number": 0,
+    "google_map_link": "https://www.google.es/maps/place/LOCK-CLOCK+Escape+room+Barcelona/@41.38612|2.1731528|19z/data=!3m1!4b1!4m5!3m4!1s0x12a4a2f0b6e69665:0xba12473a12b31d8f!8m2!3d41.386195!4d2.173485",
+    "post_code": "08002",
+    "instagram": "lock.clock",
+    "is_active": 1,
+    "rating": 4.5,
+    "opinion_count": 508,
+    "metro": {
+        "name": "L1/4 Urquinaona",
+        "metros": [
+            {
+                "color": "#EF071F",
+                "active": true
+            },
+            {
+                "color": "#FFBD00",
+                "active": true
+            },
+            {
+                "color": "#757575",
+                "active": false
+            }
+        ]
+    },
+    "city": {
+        "id": "barcelona",
+        "name": {
+            "en": "Barcelona",
+            "es": "Barcelona"
+        },
+        "province": {
+            "id": "barcelona",
+            "name": {
+                "en": "Barcelona",
+                "es": "Barcelona"
+            }
+        }
+    },
+    "games": [
+        {
+            "id": "lock-clock-0-barcelona-mision-gaudi",
+            "name": {
+                "en": "﻿Misión Gaudí",
+                "es": "﻿Misión Gaudí"
+            },
+            "minGamer": 2,
+            "maxGamer": 5,
+            "minPrice": "48",
+            "maxPrice": "80",
+            "themes": [
+                {
+                    "id": null,
+                    "name": {
+                        "en": "Historical",
+                        "es": "histórico"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "lock-clock-0-barcelona-tesoro-azteca",
+            "name": {
+                "en": "Tesoro azteca",
+                "es": "Tesoro azteca"
+            },
+            "minGamer": 2,
+            "maxGamer": 5,
+            "minPrice": "48",
+            "maxPrice": "80",
+            "themes": [
+                {
+                    "id": null,
+                    "name": {
+                        "en": "Adventure",
+                        "es": "aventuras"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "lock-clock-0-barcelona-after-party",
+            "name": {
+                "en": "After-party",
+                "es": "After-party"
+            },
+            "minGamer": 3,
+            "maxGamer": 6,
+            "minPrice": "69",
+            "maxPrice": "114",
+            "themes": [
+                {
+                    "id": null,
+                    "name": {
+                        "en": "Adults",
+                        "es": "adultos"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "lock-clock-0-barcelona-el-laberinto-del-tiempo",
+            "name": {
+                "es": "El laberinto del tiempo"
+            },
+            "minGamer": 2,
+            "maxGamer": 10,
+            "minPrice": "49",
+            "maxPrice": "150",
+            "themes": [
+                {
+                    "id": null,
+                    "name": {
+                        "en": "Fiction",
+                        "es": "ficción"
+                    }
+                }
+            ]
+        }
+    ],
+    "image": {
+        "id": "V1bM8D0J1513662678.0984",
+        "translations": [],
+        "metas": [
+            {
+                "key": "alt",
+                "value": null
+            },
+            {
+                "key": "title",
+                "value": null
+            }
+        ]
+    },
+    "rank": 0
+}
