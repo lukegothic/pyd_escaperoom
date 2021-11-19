@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import L, { map } from "leaflet";
 import limites_provincias from './ES_limites_provincias';
-import { CompanyGamesTooltip, CompanyXProvince, FindCompany } from "./functions/CompanyHelpers";
+import { CompanyGamesTooltip, CompanyXProvince, FindCompany, GameCount } from "./functions/CompanyHelpers";
 import pin_green from './assets/icons/pin_green.png';
 import pin_grey from './assets/icons/pin_grey.png';
 import pin_yellow from './assets/icons/pin_yellow.png';
@@ -11,19 +11,9 @@ const style = {
   flex: 1
 };
 
-L.icon({
-  iconUrl: 'my-icon.png',
-  iconSize: [38, 95],
-  iconAnchor: [22, 94],
-  popupAnchor: [-3, -76],
-  shadowUrl: 'my-icon-shadow.png',
-  shadowSize: [68, 95],
-  shadowAnchor: [22, 94]
-});
-
 const base_icon = {
   iconSize: [18, 24],
-  iconAnchor: [0, 0],
+  iconAnchor: [0, 24],
   popupAnchor: [0, 0]
 };
 
@@ -73,12 +63,6 @@ function Map({ markersData, userGames, activeCompany, setActiveCompany, activePr
   // add layer
   const markerLayerRef = useRef(null);
   const limitLayerRef = useRef(null);
-
-  const baseStyle = {
-    color: "grey",
-    fillColor: "black",
-    fillOpacity: 0.3
-  };
 
   const focusMap = ({ province, company }) => {
     province = province || company.city.province.id;
@@ -143,7 +127,11 @@ function Map({ markersData, userGames, activeCompany, setActiveCompany, activePr
                 color: province_colors.none_played,
                 fillColor: province_colors.none_played,
                 fillOpacity: 0.2
-              } : baseStyle;
+              } : {
+                color: "grey",
+                fillColor: "black",
+                fillOpacity: 0.5
+              };
             }, 
             filter: (f) => {
               // ocultar la provincia que esta focus... no funciona hay que hacerlo con setStyle por ejemplo
@@ -154,7 +142,7 @@ function Map({ markersData, userGames, activeCompany, setActiveCompany, activePr
                   //focusMap({ province: e.sourceTarget.feature });
                 })
                 .addTo(mapRef.current)
-                .bindTooltip(l => `${l.feature.properties.name}\n${l.feature.properties.companies ? l.feature.properties.companies.length : "No hay "} salas`);
+                .bindTooltip(l => `${l.feature.properties.name}: ${l.feature.properties.companies ? `${GameCount(l.feature.properties.companies)} juegos en ${l.feature.properties.companies.length} salas` : "No hay salas"}`);
       }
     },
     [markersData]
