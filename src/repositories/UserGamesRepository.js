@@ -29,10 +29,10 @@ export const getRooms = async () => {
     });
 };
 
-export const updateRoom = async (gameID) => {
+export const updateRoom = async (gameID, gameStatus) => {
     const db = getDatabase();
     set(ref(db, 'games/' + gameID), {
-        status: 1,
+        status: gameStatus,
         finished: true
     });
 };

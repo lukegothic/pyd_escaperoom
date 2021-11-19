@@ -2,9 +2,55 @@ import React, { useEffect, useRef, useState } from "react";
 import L, { map } from "leaflet";
 import limites_provincias from './ES_limites_provincias';
 import { CompanyGamesTooltip, CompanyXProvince, FindCompany } from "./functions/CompanyHelpers";
+import pin_green from './assets/icons/pin_green.png';
+import pin_grey from './assets/icons/pin_grey.png';
+import pin_yellow from './assets/icons/pin_yellow.png';
+import pin_pink from './assets/icons/pin_pink.png';
 
 const style = {
   flex: 1
+};
+
+L.icon({
+  iconUrl: 'my-icon.png',
+  iconSize: [38, 95],
+  iconAnchor: [22, 94],
+  popupAnchor: [-3, -76],
+  shadowUrl: 'my-icon-shadow.png',
+  shadowSize: [68, 95],
+  shadowAnchor: [22, 94]
+});
+
+const base_icon = {
+  iconSize: [18, 24],
+  iconAnchor: [0, 0],
+  popupAnchor: [0, 0]
+};
+
+const icons = {
+  some_played: L.icon({
+    ...base_icon,
+    iconUrl: pin_yellow
+  }),
+  none_played: L.icon({
+    ...base_icon,
+    iconUrl: pin_grey
+  }),
+  all_played: L.icon({
+    ...base_icon,
+    iconUrl: pin_green
+  }),
+  want_to_play: L.icon({
+    ...base_icon,
+    iconUrl: pin_pink
+  })
+};
+
+const province_colors = {
+  some_played: "#7f7d00",
+  none_played: "#3f3f3f",
+  all_played: "#007f00",
+  want_to_play: "#7f007f"
 };
 
 function Map({ markersData, userGames, activeCompany, setActiveCompany, activeProvince, setActiveProvince }) {
@@ -44,7 +90,12 @@ function Map({ markersData, userGames, activeCompany, setActiveCompany, activePr
       if (provinceGEOJSON.properties.companies) {
         provinceGEOJSON.properties.companies.forEach(company => {
           L.marker(L.latLng(company.latitude, company.longitude), 
-            { title: CompanyGamesTooltip(company), id: company.id, riseOnHover: true })
+            {
+              title: CompanyGamesTooltip(company), 
+              id: company.id, 
+              riseOnHover: true,
+              icon: icons.none_played
+            })
             .on("click", function (e) {
               setActiveCompany(FindCompany(markersData, e.sourceTarget.options.id));
             })
@@ -89,9 +140,9 @@ function Map({ markersData, userGames, activeCompany, setActiveCompany, activePr
           L.geoJSON(limites_provincias, { 
             style: (f) => {
               return f && f.properties.companies ? {
-                color: "green",
-                fillColor: "green",
-                fillOpacity: 0.1
+                color: province_colors.none_played,
+                fillColor: province_colors.none_played,
+                fillOpacity: 0.2
               } : baseStyle;
             }, 
             filter: (f) => {

@@ -1,10 +1,9 @@
 import React from "react";
-import CompanyDetail from "./CompanyDetail";
 import CompanyHeader from "./CompanyHeader";
 import { GameCount } from "./functions/CompanyHelpers";
 function CompanyList({ companies, province, setActiveCompany }) {
     const companyList = companies.filter(company => !province || company.city.province.id === province);
-    return <div style={{height: "85%", overflow: "auto"}}>Lista de salas{province && <span> en {province}</span>} ({companyList.length} con {GameCount(companyList)} juegos)
+    return <div style={{height: "85%", overflow: "auto", backgroundColor: "rgba(50,100,50,0.2)"}}>Lista de juegos ({GameCount(companyList)}{province && <span> en {province}</span>})
         <div>
             {companyList.map(company => <CompanyHeader key={company.id} company={company} compact={true} setActiveCompany={setActiveCompany} />)}
         </div>
