@@ -1,4 +1,4 @@
-import ERLDecrypter from "../functions/ERLDecrypter";
+import ERLDecrypter from '../ui/functions/ERLDecrypter';
 
 const EscapeRoomRepository = {
     get: async () => {

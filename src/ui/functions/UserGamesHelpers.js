@@ -1,4 +1,4 @@
-import EscapeRoomStatus from "../domains/EscapeRoomStatus";
+import EscapeRoomStatus from "../../domains/EscapeRoomStatus";
 
 export const RoomsArray = (userRooms) => Object.keys(userRooms).map(id => ({ id, ...userRooms[id] }));
 export const DoneRooms = (userRooms) => RoomsArray(userRooms).filter(room => room.status === EscapeRoomStatus.PLAYED);

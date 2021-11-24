@@ -1,4 +1,4 @@
-import EscapeRoomStatus, { EscapeRoomStatusIcon } from "../domains/EscapeRoomStatus";
+import EscapeRoomStatus, { EscapeRoomStatusIcon } from '../../domains/EscapeRoomStatus';
 
 // helpers
 const isPlayedGame = g => g.user && g.user.status === EscapeRoomStatus.PLAYED;

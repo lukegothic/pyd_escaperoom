@@ -1,17 +1,17 @@
-
 // TODO:
 // PARTE 1: MAPA
 - [x] 1.1 mapa españa
-- [] 1.2 provincias (vision pajaro) + simbología
-- [] 1.3 labels
-- [] 1.3.1 numero de escape rooms
-- [] 1.3.2 numero hechos
+- [x] 1.2 provincias (vision pajaro) + simbología
+- [] 1.2.1 update al cambiar
+- [x] 1.3 labels
+- [x] 1.3.1 numero de escape rooms
+- [x] 1.3.2 numero hechos
 - [x] 1.4 clic en pronvicia
 - [x] 1.4.1 centrar en provincia
 - [x] 1.4.2 load marcadores escape
 - [] 1.4.3 provincia invisible
 - [x] 1.5 marcadores
-- [] 1.5.1 mostrar marcadores pronvicia + simbología de los hechos
+- [x] 1.5.1 mostrar marcadores pronvicia + simbología de los hechos
 - [x] 1.5.2 clic en marcador => centrar + load info en panel (parte de arriba)
 
 // PARTE 2 panel info
@@ -27,6 +27,7 @@
 - [x] 2.3.1.1 cambiar estado
 - [] 2.3.2 metadatos sala o empresa: nombre- web- tripadvisor - puntuacion - tematica - precio - jugadores
 - [x] 2.4 clic en sala => centrar en mapa (oculta provincia, load marcadores, centra en marcador sala)
+- [] 2.5 panel usuario (resumen y listas de hechas y want to go)? 
 
 // PARTE 3 modo movil
 - [] 3.1 diseño (copy google)

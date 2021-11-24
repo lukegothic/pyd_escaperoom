@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
-import limites_provincias from './ES_limites_provincias';
 import { CompanyTooltipAndIcon, CompanyXProvince, FindCompany, GameCount, GamePlayedCount, HasWantToPlay, ProvinceTooltip } from "./functions/CompanyHelpers";
-import pin_green from './assets/icons/pin_green.png';
-import pin_grey from './assets/icons/pin_grey.png';
-import pin_yellow from './assets/icons/pin_yellow.png';
-import pin_pink from './assets/icons/pin_pink.png';
+import pin_green from '../assets/icons/pin_green.png';
+import pin_grey from '../assets/icons/pin_grey.png';
+import pin_yellow from '../assets/icons/pin_yellow.png';
+import pin_pink from '../assets/icons/pin_pink.png';
+import limites_provincias from '../data/ES_limites_provincias';
 
 const style = {
   flex: 1
@@ -107,9 +107,10 @@ function Map({ companies, userGames, activeCompany, setActiveCompany, activeProv
   // update markers
   useEffect(
     () => {
+      // TODO: REGENEARAR ESTILO PROVINCIA
+      // TODO: REGENERAR ESTILO MARKERS
      if (companies && userGames) {
         // cruzar companias por provincia
-        //const companies_x_userGames = JoinCompaniesWithUserGames(companies, userGames);
         const company_x_province = CompanyXProvince(companies);
         // asignar companias a cada provincia
         const not_mapped_provinces = [];

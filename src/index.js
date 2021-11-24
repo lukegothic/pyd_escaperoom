@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { render } from "react-dom";
-import Map from "./Map";
-import Panel from "./Panel";
-import Wrapper from "./Wrapper";
-import { } from "./repositories/UserPreferencesRepository";
+import Map from "./ui/Map";
+import Panel from "./ui/Panel";
+import Wrapper from "./ui/Wrapper";
 import EscapeRoomRepository from "./repositories/EscapeRoomRepository";
 import { getRooms } from "./repositories/UserGamesRepository";
 
@@ -34,6 +33,7 @@ function App() {
         <Panel
             companies={companies}
             userGames={userGames}
+            setUserGames={setUserGames}
             activeCompany={activeCompany}
             setActiveCompany={setActiveCompany}
             activeProvince={activeProvince} />
