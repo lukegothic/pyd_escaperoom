@@ -1,13 +1,10 @@
 const EscapeRoomStatus = {
     NOT_PLAYED: 0,
-    WANT_TO_PLAY: 2,
-    PLAYED: 1
+    PLAYED: 1,
+    WANT_TO_PLAY: 2
 };
 
-export const EscapeRoomStatusText = {
-    NOT_PLAYED: "No jugado",
-    WANT_TO_PLAY: "Queremos jugar",
-    PLAYED: "Jugado"
-}
+export const EscapeRoomStatusText = ["No jugado", "Jugado", "Queremos jugar"];
+export const EscapeRoomStatusIcon = ["❔", "✅", "💖"];
 
 export default EscapeRoomStatus;

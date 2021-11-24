@@ -8,7 +8,7 @@ function GameDetail({ game }) {
         <div>{game.name.es}</div>
         <div>
             {Object.keys(EscapeRoomStatus).map(status => 
-                <label key={status}><input type="radio" name={game.id} onChange={() => updateRoom(game.id, EscapeRoomStatus[status])} />{EscapeRoomStatusText[status]}</label>
+                <label key={EscapeRoomStatus[status]}><input type="radio" name={game.id} onChange={() => updateRoom(game.id, EscapeRoomStatus[status])} />{EscapeRoomStatusText[EscapeRoomStatus[status]]}</label>
         )}
         </div>
     </div>;

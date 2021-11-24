@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 //import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase, ref, set, get } from "firebase/database";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -19,14 +19,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+console.log("Connected to Firebase DDBB", app.name);
 
 export const getRooms = async () => {
     const db = getDatabase();
     const userGames = ref(db, 'games');
-    onValue(userGames, (snapshot) => {
-        const data = snapshot.val();
-        return data;
-    });
+    const data = await get(userGames);
+    return data.val();
 };
 
 export const updateRoom = async (gameID, gameStatus) => {

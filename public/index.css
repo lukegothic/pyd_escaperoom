@@ -12,3 +12,8 @@ html, body {
     padding: 0;
     border: 0;
 }
+/*
+img .leaflet-marker-icon[title] {
+    font-family: 'Courier New', Courier, monospace;
+}
+*/

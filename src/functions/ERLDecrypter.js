@@ -11,7 +11,9 @@ const ERLDecrypter = {
             var n = lib.CipherParams.create({
                 ciphertext: enc.Base64.parse(e.ct)
             });
-            return e.iv && (n.iv = enc.Hex.parse(e.iv)), e.s && (n.salt = enc.Hex.parse(e.s)), n;
+            e.iv && (n.iv = enc.Hex.parse(e.iv));
+            e.s && (n.salt = enc.Hex.parse(e.s));
+            return n;
         }
     },
     decrypt: function(encrypted) {
