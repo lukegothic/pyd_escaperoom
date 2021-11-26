@@ -43,7 +43,9 @@ const province_colors = {
   want_to_play: "#7f007f"
 };
 
-function Map({ companies, userGames, activeCompany, setActiveCompany, activeProvince, setActiveProvince }) {
+
+
+function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvince, setActiveProvince }) {
   const [mapProvince, setMapProvince] = useState(null);
   // create map
   const mapRef = useRef(null);
@@ -64,28 +66,70 @@ function Map({ companies, userGames, activeCompany, setActiveCompany, activeProv
   const markerLayerRef = useRef(null);
   const limitLayerRef = useRef(null);
 
+  const provinceLayerStyle = (f) => {
+    const style = {
+      color: "grey",
+      fillColor: "black",
+      fillOpacity: 0.5
+    };
+    if (f && f.properties.companies) {
+      style.fillOpacity = 0.1;
+      const prov_game_count = GameCount(f.properties.companies);
+      const prov_game_count_user = GamePlayedCount(f.properties.companies, userGames);
+      const hasWantToPlay = HasWantToPlay(f.properties.companies, userGames);
+      switch (prov_game_count_user / prov_game_count) {
+        case 0:
+          style.color = province_colors.none_played;
+          style.fillColor = province_colors.none_played;
+          break;
+        case 1:
+          style.color = province_colors.all_played;
+          style.fillColor = province_colors.all_played;
+          break;
+        default:
+          if (hasWantToPlay) {
+            style.color = province_colors.want_to_play;
+            style.fillColor = province_colors.want_to_play;
+          } else {
+            style.color = province_colors.some_played;
+            style.fillColor = province_colors.some_played;
+          }
+          break;
+      }
+    }
+    return style;
+  };
+
+  const generateMarkers = (province) => {
+    province = province || findProvince(activeProvince);
+    markerLayerRef.current.clearLayers();
+    if (province.properties.companies) {
+      province.properties.companies.forEach(company => {
+        const [tooltip, icon] = CompanyTooltipAndIcon(company, mapData.userGames);
+        L.marker(L.latLng(company.latitude, company.longitude), {
+          title: tooltip,
+          id: company.id,
+          riseOnHover: true,
+          icon: icons[icon]
+        })
+          .on("click", function (e) {
+            setActiveCompany(FindCompany(mapData.companies, e.sourceTarget.options.id));
+          })
+          .addTo(markerLayerRef.current);
+      });
+    }
+  };
+  const findProvince = (province) => {
+    return limites_provincias.features.find(p => p.properties.id === province);
+  };
+
   const focusMap = ({ province, company }) => {
     province = province || company.city.province.id;
     if (province !== mapProvince) {
       setMapProvince(province);
-      const provinceGEOJSON = limites_provincias.features.find(p => p.properties.id === province);
-      mapRef.current.fitBounds(L.geoJSON(provinceGEOJSON).getBounds());
-      markerLayerRef.current.clearLayers();
-      if (provinceGEOJSON.properties.companies) {
-        provinceGEOJSON.properties.companies.forEach(company => {
-          const [tooltip, icon] = CompanyTooltipAndIcon(company, userGames);
-          L.marker(L.latLng(company.latitude, company.longitude), {
-              title: tooltip,
-              id: company.id, 
-              riseOnHover: true,
-              icon: icons[icon]
-            })
-            .on("click", function (e) {
-              setActiveCompany(FindCompany(companies, e.sourceTarget.options.id));
-            })
-            .addTo(markerLayerRef.current);
-        });                    
-      }
+      const myProvince = findProvince(province);
+      mapRef.current.fitBounds(L.geoJSON(myProvince).getBounds());
+      generateMarkers(myProvince);
     }
     if (company) {
       mapRef.current.setView(L.latLng(company.latitude, company.longitude), Math.max(mapRef.current.getZoom(), 10));
@@ -107,73 +151,49 @@ function Map({ companies, userGames, activeCompany, setActiveCompany, activeProv
   // update markers
   useEffect(
     () => {
-      // TODO: REGENEARAR ESTILO PROVINCIA
-      // TODO: REGENERAR ESTILO MARKERS
-     if (companies && userGames) {
-        // cruzar companias por provincia
-        const company_x_province = CompanyXProvince(companies);
-        // asignar companias a cada provincia
-        const not_mapped_provinces = [];
-        Object.keys(company_x_province).forEach(prov => {
-          const provfeat = limites_provincias.features.find(p => p.properties.id === prov || (p.properties.child_ids && p.properties.child_ids.indexOf(prov) !== -1));
-          if (provfeat) {
-            provfeat.properties.companies = company_x_province[prov];
-          } else {
-            not_mapped_provinces.push(prov);
-          }
-        });
-        // reportar
-        if (not_mapped_provinces.length > 0) {
-          console.warn(`Provinces not mapped: ${not_mapped_provinces.join(', ')}`);
+      // cruzar companias por provincia
+      if (!mapData) return;
+      const company_x_province = CompanyXProvince(mapData.companies);
+      // asignar companias a cada provincia
+      const not_mapped_provinces = [];
+      Object.keys(company_x_province).forEach(prov => {
+        const provfeat = limites_provincias.features.find(p => p.properties.id === prov || (p.properties.child_ids && p.properties.child_ids.indexOf(prov) !== -1));
+        if (provfeat) {
+          provfeat.properties.companies = company_x_province[prov];
+        } else {
+          not_mapped_provinces.push(prov);
         }
-        // generar capa limites
-        limitLayerRef.current = 
-          L.geoJSON(limites_provincias, { 
-            style: (f) => {
-              const style = {
-                color: "grey",
-                fillColor: "black",
-                fillOpacity: 0.5
-              };
-              if (f && f.properties.companies) {
-                style.fillOpacity = 0.1;
-                const prov_game_count = GameCount(f.properties.companies);
-                const prov_game_count_user = GamePlayedCount(f.properties.companies, userGames);
-                const hasWantToPlay = HasWantToPlay(f.properties.companies, userGames);
-                switch(prov_game_count_user / prov_game_count) {
-                  case 0:
-                    style.color = province_colors.none_played;
-                    style.fillColor = province_colors.none_played;
-                    break;
-                  case 1:
-                    style.color = province_colors.all_played;
-                    style.fillColor = province_colors.all_played;
-                    break;
-                  default: 
-                    if (hasWantToPlay) {
-                      style.color = province_colors.want_to_play;
-                      style.fillColor = province_colors.want_to_play;
-                    } else {
-                      style.color = province_colors.some_played;
-                      style.fillColor = province_colors.some_played;
-                    }
-                    break;
-                }
-              }
-              return style;
-            }, 
-            filter: (f) => {
-              // TODO: ocultar la provincia que esta focus... no funciona hay que hacerlo con setStyle por ejemplo
-              return f && !f.properties.focused;
-            }}).on("click", function (e) {
-                  // al hacer clic en provincia, mostrar las companies de esa provincia
-                  setActiveProvince(e.sourceTarget.feature.properties.id);
-                })
-                .addTo(mapRef.current)
-                .bindTooltip(l => ProvinceTooltip(l.feature.properties, userGames));
+      });
+      // reportar
+      if (not_mapped_provinces.length > 0) {
+        console.warn(`Provinces not mapped: ${not_mapped_provinces.join(', ')}`);
       }
+      // generar capa limites
+      limitLayerRef.current =
+        L.geoJSON(limites_provincias, {
+          style: provinceLayerStyle,
+          filter: (f) => {
+            // TODO: ocultar la provincia que esta focus... no funciona hay que hacerlo con setStyle por ejemplo
+            return f && !f.properties.focused;
+          }
+        }).on("click", function (e) {
+          setActiveProvince(e.sourceTarget.feature.properties.id);
+        }).addTo(mapRef.current)
+          .bindTooltip(l => ProvinceTooltip(l.feature.properties, mapData.userGames));
     },
-    [companies, userGames]
+    [mapData]
+  );
+
+  useEffect(
+    () => {
+      if (mapData) {
+        // REGENEARAR ESTILO PROVINCIA
+        limitLayerRef.current.setStyle(provinceLayerStyle);
+        // TODO: REGENERAR ESTILO MARKERS
+        generateMarkers();
+      }
+    }, 
+    [userGames]
   );
 
   return <div id="map" style={style} />;

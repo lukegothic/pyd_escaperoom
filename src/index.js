@@ -11,20 +11,22 @@ function App() {
     const [activeProvince, setActiveProvince] = useState(null);
     const [activeCompany, setActiveCompany] = useState(null);
     const [userGames, setUserGames] = useState(null);
+    const [mapData, setMapData] = useState(null);
 
     useEffect(() => {
         (async () => {
             const companies = await EscapeRoomRepository.get();
-            setCompanies(companies);
             const dbUserGames = await getRooms();
+            setCompanies(companies);
             setUserGames(dbUserGames);
+            setMapData({ companies, userGames: dbUserGames });
             console.log(companies, dbUserGames);
         })();
     }, []);
 
     return <Wrapper>
         <Map
-            companies={companies}
+            mapData={mapData}
             userGames={userGames}
             activeCompany={activeCompany}
             setActiveCompany={setActiveCompany}
