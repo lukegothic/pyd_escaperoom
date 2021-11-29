@@ -5,6 +5,7 @@ import Panel from "./ui/Panel";
 import Wrapper from "./ui/Wrapper";
 import EscapeRoomRepository from "./repositories/EscapeRoomRepository";
 import { getRooms } from "./repositories/UserGamesRepository";
+import MapHud from "./ui/MapHud";
 //import {ThemeProvider} from "styled-components"
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             setActiveCompany={setActiveCompany}
             activeProvince={activeProvince}
             setActiveProvince={setActiveProvince} />
+        { userGames && companies && <MapHud companies={companies} userGames={userGames} /> }
         <Panel
             companies={companies}
             userGames={userGames}

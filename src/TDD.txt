@@ -2,7 +2,7 @@
 // PARTE 1: MAPA
 - [x] 1.1 mapa españa
 - [x] 1.2 provincias (vision pajaro) + simbología
-- [] 1.2.1 update al cambiar
+- [x] 1.2.1 update al cambiar
 - [x] 1.3 labels
 - [x] 1.3.1 numero de escape rooms
 - [x] 1.3.2 numero hechos
@@ -28,6 +28,7 @@
 - [] 2.3.2 metadatos sala o empresa: nombre- web- tripadvisor - puntuacion - tematica - precio - jugadores
 - [x] 2.4 clic en sala => centrar en mapa (oculta provincia, load marcadores, centra en marcador sala)
 - [] 2.5 panel usuario (resumen y listas de hechas y want to go)? 
+- [] 2.6 lista salas y lista juegos (viene de los filtros)
 
 // PARTE 3 modo movil
 - [] 3.1 diseño (copy google)
