@@ -133,7 +133,7 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
       generateMarkers({ province: myProvince });
     }
     if (company) {
-      mapRef.current.setView(L.latLng(company.latitude, company.longitude), Math.max(mapRef.current.getZoom(), 10));
+      mapRef.current.setView(L.latLng(company.latitude, company.longitude), Math.max(mapRef.current.getZoom(), 14));
     }
   }
 

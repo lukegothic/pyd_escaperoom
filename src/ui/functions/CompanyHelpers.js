@@ -25,7 +25,7 @@ export const ProvinceTooltip = (province, userGames) => {
     const allgames = GetCompanyRooms(companies_x_userGames);
     const playedGamesCount = allgames.filter(isPlayedGame).length;
     const wantedGamesCount = allgames.filter(isWantedGame).length;
-    return `📍 ${province.name} tiene ${allgames.length} juegos en ${province.companies.length} salas<br />${EscapeRoomStatusIcon[EscapeRoomStatus.PLAYED]} ${playedGamesCount} jugadas ${EscapeRoomStatusIcon[EscapeRoomStatus.WANT_TO_PLAY]} ${wantedGamesCount} queremos ir`;
+    return `📍 ${province.name} tiene ${allgames.length} juegos en ${province.companies.length} salas<br />${EscapeRoomStatusIcon[EscapeRoomStatus.PLAYED]} ${playedGamesCount} jugados ${EscapeRoomStatusIcon[EscapeRoomStatus.WANT_TO_PLAY]} ${wantedGamesCount} queremos ir`;
   } else {
     return `No hay salas en ${province.name} 😭`;
   }
@@ -36,7 +36,7 @@ export const JoinCompaniesWithUserGames = (companies, userGames) => {
   const singleCompany = !Array.isArray(companies);
   singleCompany && (companies = [companies]);
   const allgames = GetCompanyRooms(companies);
-  Object.keys(userGames).forEach(gameId => {
+  userGames && Object.keys(userGames).forEach(gameId => {
     const g = allgames.find(g => g.id === gameId);
     g && (g.user = userGames[gameId]);
   });

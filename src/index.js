@@ -5,6 +5,7 @@ import Panel from "./ui/Panel";
 import Wrapper from "./ui/Wrapper";
 import EscapeRoomRepository from "./repositories/EscapeRoomRepository";
 import { getRooms } from "./repositories/UserGamesRepository";
+//import {ThemeProvider} from "styled-components"
 
 function App() {
     const [companies, setCompanies] = useState(null);
