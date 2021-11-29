@@ -100,12 +100,13 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
     return style;
   };
 
-  const generateMarkers = (province) => {
+  const generateMarkers = ({ province, userGames }) => {
     province = province || findProvince(activeProvince);
+    userGames = userGames || mapData.userGames;
     markerLayerRef.current.clearLayers();
     if (province.properties.companies) {
       province.properties.companies.forEach(company => {
-        const [tooltip, icon] = CompanyTooltipAndIcon(company, mapData.userGames);
+        const [tooltip, icon] = CompanyTooltipAndIcon(company, userGames);
         L.marker(L.latLng(company.latitude, company.longitude), {
           title: tooltip,
           id: company.id,
@@ -113,7 +114,7 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
           icon: icons[icon]
         })
           .on("click", function (e) {
-            setActiveCompany(FindCompany(mapData.companies, e.sourceTarget.options.id));
+            setActiveCompany(company);
           })
           .addTo(markerLayerRef.current);
       });
@@ -129,7 +130,7 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
       setMapProvince(province);
       const myProvince = findProvince(province);
       mapRef.current.fitBounds(L.geoJSON(myProvince).getBounds());
-      generateMarkers(myProvince);
+      generateMarkers({ province: myProvince, usergames: mapData.userGames });
     }
     if (company) {
       mapRef.current.setView(L.latLng(company.latitude, company.longitude), Math.max(mapRef.current.getZoom(), 10));
@@ -190,7 +191,7 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
         // REGENEARAR ESTILO PROVINCIA
         limitLayerRef.current.setStyle(provinceLayerStyle);
         // TODO: REGENERAR ESTILO MARKERS
-        generateMarkers();
+        generateMarkers({ userGames });
       }
     }, 
     [userGames]
