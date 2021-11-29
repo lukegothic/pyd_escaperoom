@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
-import { CompanyTooltipAndIcon, CompanyXProvince, FindCompany, GameCount, GamePlayedCount, HasWantToPlay, ProvinceTooltip } from "./functions/CompanyHelpers";
+import { CompanyTooltipAndIcon, CompanyXProvince, GameCount, GamePlayedCount, HasWantToPlay, ProvinceTooltip } from "./functions/CompanyHelpers";
 import pin_green from '../assets/icons/pin_green.png';
 import pin_grey from '../assets/icons/pin_grey.png';
 import pin_yellow from '../assets/icons/pin_yellow.png';
@@ -130,7 +130,7 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
       setMapProvince(province);
       const myProvince = findProvince(province);
       mapRef.current.fitBounds(L.geoJSON(myProvince).getBounds());
-      generateMarkers({ province: myProvince, usergames: mapData.userGames });
+      generateMarkers({ province: myProvince });
     }
     if (company) {
       mapRef.current.setView(L.latLng(company.latitude, company.longitude), Math.max(mapRef.current.getZoom(), 10));
