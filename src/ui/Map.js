@@ -77,24 +77,20 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
       const prov_game_count = GameCount(f.properties.companies);
       const prov_game_count_user = GamePlayedCount(f.properties.companies, userGames);
       const hasWantToPlay = HasWantToPlay(f.properties.companies, userGames);
-      switch (prov_game_count_user / prov_game_count) {
-        case 0:
+      if (prov_game_count === prov_game_count_user) {
+        style.color = province_colors.all_played;
+        style.fillColor = province_colors.all_played;
+      } else {
+        if (hasWantToPlay) {
+          style.color = province_colors.want_to_play;
+          style.fillColor = province_colors.want_to_play;
+        } else if (prov_game_count_user > 0) {
+          style.color = province_colors.some_played;
+          style.fillColor = province_colors.some_played;
+        } else {
           style.color = province_colors.none_played;
           style.fillColor = province_colors.none_played;
-          break;
-        case 1:
-          style.color = province_colors.all_played;
-          style.fillColor = province_colors.all_played;
-          break;
-        default:
-          if (hasWantToPlay) {
-            style.color = province_colors.want_to_play;
-            style.fillColor = province_colors.want_to_play;
-          } else {
-            style.color = province_colors.some_played;
-            style.fillColor = province_colors.some_played;
-          }
-          break;
+        }
       }
     }
     return style;
@@ -115,6 +111,7 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
         })
           .on("click", function (e) {
             setActiveCompany(company);
+            window.location.hash = company.id;
           })
           .addTo(markerLayerRef.current);
       });
@@ -146,7 +143,10 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
   }, [activeProvince]);
 
   useEffect(() => {
-    activeCompany && focusMap({ company: activeCompany });
+    if (activeCompany) {
+      setActiveProvince(activeCompany.city.province.id);
+      focusMap({ company: activeCompany });
+    }
   }, [activeCompany]);
 
   // update markers
