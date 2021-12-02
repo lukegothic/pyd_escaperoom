@@ -14,5 +14,5 @@ jobs:
       with:
         ftp-server: sftp://access782277410.webspace-data.io/escaperooms/
         ftp-username: u97215176-petirrojo
-        ftp-password: ${{ secrets.COMMUNITY_PYD_FTP_SECRET }}
+        ftp-password: ${{ secrets.PYD_SECRET }}
         git-ftp-args: --insecure # if your certificate is setup correctly this can be removed (see known-hosts argument) 
