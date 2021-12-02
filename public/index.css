@@ -146,13 +146,28 @@ background-image:
 
 .company-game {
     display: grid;
-    grid-template-columns: 1fr 102px;
+    grid-template-columns: 1fr 120px 68px 120px;
     height: 22px;
 }
 
 .game-name {
     font-family: Open Sans Condensed,sans-serif;
     font-size: 14px;
+}
+
+.game-players {
+    text-align: left;
+    font-size: 14px;
+}
+
+.game-themes {
+    text-align: left;
+    font-size: 14px;
+}
+
+.game-status {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .progress-label {

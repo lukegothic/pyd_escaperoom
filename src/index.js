@@ -6,6 +6,7 @@ import Wrapper from "./ui/Wrapper";
 import EscapeRoomRepository from "./repositories/EscapeRoomRepository";
 import { getRooms } from "./repositories/UserGamesRepository";
 import MapHud from "./ui/MapHud";
+import { padLeft, padRight } from "./ui/functions/utils";
 //import {ThemeProvider} from "styled-components"
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         (async () => {
             const companies = await EscapeRoomRepository.get();
             const dbUserGames = await getRooms();
+            companies.forEach(c => c.sort_rating = `${padLeft(c.rating * 10, 2, "0")}_${padLeft(c.opinion_count, 8, "0")}`);
             setCompanies(companies);
             setUserGames(dbUserGames);
             setMapData({ companies, userGames: dbUserGames });
@@ -35,13 +37,13 @@ function App() {
             activeProvince={activeProvince}
             setActiveProvince={setActiveProvince} />
         { userGames && companies && <MapHud companies={companies} userGames={userGames} /> }
-        <Panel
+        { <Panel
             companies={companies}
             userGames={userGames}
             setUserGames={setUserGames}
             activeCompany={activeCompany}
             setActiveCompany={setActiveCompany}
-            activeProvince={activeProvince} />
+            activeProvince={activeProvince} /> }
     </Wrapper>;
 }
 

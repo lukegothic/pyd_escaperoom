@@ -1,7 +1,8 @@
 import React from "react";
+import EscapeRoomStatus, { EscapeRoomStatusIcon } from "../domains/EscapeRoomStatus";
 import { GameCount } from "./functions/CompanyHelpers";
-import { FinishedEscapeRoom, WantToPlayRooms, DoneRooms } from "./functions/UserGamesHelpers";
-
+import { WantToPlayRooms, DoneRooms } from "./functions/UserGamesHelpers";
+ 
 function UserSummary({ companies, userGames }) {
     const availableRooms = GameCount(companies);
     const doneRooms = DoneRooms(userGames);
@@ -14,7 +15,7 @@ function UserSummary({ companies, userGames }) {
             <span className="progress-label font-small">{doneRooms.length} / {availableRooms} ({Math.round((doneRooms.length / availableRooms)*100)}%)</span>
         </div>
         <div style={{ position:"relative", width: "100%", textAlign: "right" }}>
-            <span className="wanttoplay-heart">💖</span>
+            <span className="wanttoplay-heart">{EscapeRoomStatusIcon[EscapeRoomStatus.WANT_TO_PLAY]}</span>
             <span className="wanttoplay-label">{wantToPlayRooms.length}</span>
         </div>
     </div>;
