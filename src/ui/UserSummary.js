@@ -12,7 +12,7 @@ function UserSummary({ companies, userGames }) {
     return <div style={{ position:"absolute", zIndex: 1000, right: "42%", top: "5px", width: "15%" }}>
         <div style={{ position:"relative" }}>
             <progress className="progress-bar" value={doneRooms.length} max={availableRooms}></progress>
-            <span className="progress-label font-small">{doneRooms.length} / {availableRooms} ({Math.round((doneRooms.length / availableRooms)*100)}%)</span>
+            <span className="progress-label">{doneRooms.length} / {availableRooms} ({Math.round((doneRooms.length / availableRooms)*100)}%)</span>
         </div>
         <div style={{ position:"relative", width: "100%", textAlign: "right" }}>
             <span className="wanttoplay-heart">{EscapeRoomStatusIcon[EscapeRoomStatus.WANT_TO_PLAY]}</span>

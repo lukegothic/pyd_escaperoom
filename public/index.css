@@ -113,8 +113,10 @@ background-image:
 }
 
 .panel-splitted {
+    /*
     display: grid;
     grid-template-rows: 40px 1fr;
+    */
 }
 
 .panel-filter {
@@ -154,10 +156,12 @@ background-image:
     padding: 5px;
 }
 
+/* todo: no usar margin y tal, se rompe el layuout al hacer lcic en marcador de mapa */
 .company-list, .game-list {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 100%;
+    height: calc(100% - 40px);
+    margin-top: 40px;
 }
 
 .company-detail {
@@ -272,7 +276,6 @@ background-image:
     justify-content: flex-end;
 }
 
-
 .progress-label {
     position: absolute;
     width: 100%;
@@ -280,23 +283,24 @@ background-image:
     left: 0;
     text-align: center;
     font-weight: bold;
-    line-height: 24px;
+    font-size: 20px;
+    line-height: 40px;
     text-shadow:0 0 3px #fff, 0 0 1px #fff;
-    
+    font-family: Open Sans Condensed,sans-serif;
 }
 
 .wanttoplay-heart {
-    font-size: 22px;
+    font-size: 32px;
 }
 
 .wanttoplay-label {
     position: absolute;
-    top: 3px;
-    right: 7px;
+    top: 5px;
+    right: 12px;
     text-align: right;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
-    line-height: 24px;
+    line-height: 32px;
     color: #fff;
     text-shadow:0 0 3px #000, 0 0 1px #000;
 }
