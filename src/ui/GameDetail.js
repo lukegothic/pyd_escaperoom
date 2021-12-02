@@ -18,7 +18,7 @@ const iconByTheme = {
 function GameDetail({ game, userGames, setUserGames }) {
     const userGameStatus = userGames && game.id in userGames ? userGames[game.id].status : EscapeRoomStatus.NOT_PLAYED;
     return <div className="company-game">
-                <div className="game-name">🧩 {game.name.es}</div>
+                <div className={`game-name game-status-${userGameStatus}`}><a href={`https://www.escaperoomlover.com/es/juego/${game.id}`} target="_blank" title="clic para visitar el juego en ERL">🧩 {game.name.es}</a></div>
                 <div className="game-themes" title={game.themes.map(t => t.name.es).join(",")}>{game.themes.map(t => `${iconByTheme[t.name.es]} ${t.name.es}`).join(" ")}</div>
                 <div className="game-players">{`👫 ${game.minGamer ? game.minGamer + "-" : ""}${game.maxGamer}` }</div>
                 <div className="game-status">

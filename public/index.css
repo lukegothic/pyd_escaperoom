@@ -62,12 +62,83 @@ background-image:
     -webkit-text-fill-color: transparent;
 }
 
+.cool-button {
+    display: inline-block;
+    outline: 0;
+    appearance: none;
+    padding: 0px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: rgb(249, 251, 250);
+    border: 1px solid rgb(137, 151, 155);
+    box-shadow: rgb(6 22 33 / 30%) 0px 1px 2px;
+    color: rgb(61, 79, 88);
+    font-size: 14px;
+    transition: all 150ms ease-in-out 0s;
+    height: 24px;
+    line-height: 24px;
+    font-family: Open Sans Condensed,sans-serif;
+}
+
+.cool-button:hover {
+    color: rgb(61, 79, 88);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(93, 108, 116);
+    box-shadow: rgb(0 0 0 / 30%) 0px 4px 4px, rgb(231 238 236) 0px 0px 0px 3px;
+}
+
+.cool-button.active {
+    background-color: rgb(9, 128, 76);
+    box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px;
+    color: rgb(255, 255, 255);
+}
+
+.cool-button.active:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(17, 97, 73);
+    box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px, rgb(195 231 202) 0px 0px 0px 3px;
+}
+
 .panel {
-    background-color: #3a4a61;
+    background-image: linear-gradient(135deg, #373f70 42.86%, #444e8a 42.86%, #444e8a 50%, #373f70 50%, #373f70 92.86%, #444e8a 92.86%, #444e8a 100%);
+    background-size: 49.50px 49.50px;
     flex-basis: 30%;
     height: 100%; 
-    overflow:auto;
-    padding:5px;
+    padding: 40px 5px 5px 5px;
+    border-left: 4px groove #232c38;
+}
+
+.panel-filter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 30px;
+    width: 30%;
+    padding: 5px;
+    display: flex;
+    gap: 8px;
+}
+
+.panel-filter > * {
+    flex-grow: 1; 
+}
+
+.panel-filter-button {
+    height: 24px;
+    line-height: 24px;
+}
+
+.group-title {
+    color: #fff;
+    font-family: Open Sans Condensed,sans-serif;
+    font-size: 18px;
+}
+
+.company-list {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100% - 40px);
 }
 
 .company-detail {
@@ -153,6 +224,17 @@ background-image:
 .game-name {
     font-family: Open Sans Condensed,sans-serif;
     font-size: 14px;
+}
+.game-status-0 {
+    color: #000;
+}
+
+.game-status-1 {
+    color: #007f00;
+}
+
+.game-status-2 {
+    color: #7f007f;
 }
 
 .game-players {
