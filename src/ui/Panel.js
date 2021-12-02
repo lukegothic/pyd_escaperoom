@@ -71,8 +71,11 @@ function Panel({ companies, userGames, setUserGames, activeCompany, setActiveCom
   const [groupMethod, setGroupMethod] = useState(groupingMethods[0]);
   return <div className="panel">
     <FilterPanel groupingMethods={groupingMethods} groupMethod={groupMethod} setGroupMethod={setGroupMethod} />
-    {companies && groupMethod.type === "company" && <CompanyList groupMethod={groupMethod} companies={companies} province={activeProvince} activeCompany={activeCompany} setActiveCompany={setActiveCompany} userGames={userGames} setUserGames={setUserGames} />}
-    {companies && groupMethod.type === "game" && <GameList groupMethod={groupMethod} games={GetCompanyRooms(companies)} province={activeProvince} activeCompany={activeCompany} setActiveCompany={setActiveCompany} userGames={userGames} setUserGames={setUserGames} />}
+    <div className="panel-splitted">
+      <div></div>
+      {companies && groupMethod.type === "company" && <CompanyList groupMethod={groupMethod} companies={companies} province={activeProvince} activeCompany={activeCompany} setActiveCompany={setActiveCompany} userGames={userGames} setUserGames={setUserGames} />}
+      {companies && groupMethod.type === "game" && <GameList groupMethod={groupMethod} games={GetCompanyRooms(companies)} province={activeProvince} activeCompany={activeCompany} setActiveCompany={setActiveCompany} userGames={userGames} setUserGames={setUserGames} />}
+    </div>
   </div>;
 }
 export default Panel;

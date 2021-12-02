@@ -27,10 +27,13 @@ img .leaflet-marker-icon[title] {
 progress[value] {
     -webkit-appearance: none;
     appearance: none;
- 
-   width: 250px;
-   height: 20px;
+    width: 100%;
+    height: 40px;
+    background-color:#fff;
+    border: 1px solid #000;
+    box-shadow: 0 0 0 1px #000;
 }
+
 progress[value]::-webkit-progress-bar {
     background-color: #eee;
     border-radius: 2px;
@@ -45,7 +48,7 @@ background-image:
         -webkit-linear-gradient(left, rgb(0, 177, 30), rgb(0, 177, 30));
 
     border-radius: 2px; 
-    background-size: 35px 20px, 100% 100%, 100% 100%;
+    background-size: 35px 40px, 100% 100%, 100% 100%;
 }
 .stars {
     --percent: calc(var(--rating) / 5 * 100%);
@@ -103,10 +106,15 @@ background-image:
 .panel {
     background-image: linear-gradient(135deg, #373f70 42.86%, #444e8a 42.86%, #444e8a 50%, #373f70 50%, #373f70 92.86%, #444e8a 92.86%, #444e8a 100%);
     background-size: 49.50px 49.50px;
-    flex-basis: 30%;
+    flex-basis: 40%;
     height: 100%; 
-    padding: 40px 5px 5px 5px;
-    border-left: 4px groove #232c38;
+    padding: 5px;
+    border-left: 4px groove #2d4058;
+}
+
+.panel-splitted {
+    display: grid;
+    grid-template-rows: 40px 1fr;
 }
 
 .panel-filter {
@@ -114,7 +122,7 @@ background-image:
     top: 0;
     right: 0;
     height: 30px;
-    width: 30%;
+    width: 40%;
     padding: 5px;
     display: flex;
     gap: 5px;
@@ -149,7 +157,7 @@ background-image:
 .company-list, .game-list {
     overflow-y: auto;
     overflow-x: hidden;
-    height: calc(100% - 40px);
+    height: 100%;
 }
 
 .company-detail {
@@ -264,6 +272,7 @@ background-image:
     justify-content: flex-end;
 }
 
+
 .progress-label {
     position: absolute;
     width: 100%;
@@ -282,9 +291,8 @@ background-image:
 
 .wanttoplay-label {
     position: absolute;
-    width: 100%;
     top: 3px;
-    left: -11px;
+    right: 7px;
     text-align: right;
     font-size: 14px;
     font-weight: bold;

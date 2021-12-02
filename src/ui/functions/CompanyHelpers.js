@@ -17,9 +17,13 @@ export const CompanyXProvince = (all) => {
 };
 // COMPANIAS COMO ROOMS
 export const GetCompanyRooms = (companies) => {
-  return companies.reduce((all, company) => all.concat(company.games), []);
-  // const games = [];
-  // TODO: incluir info compania en el game
+  companies.forEach(company => {
+    company.games.forEach(game => {
+      game.company = company;
+    });
+  });
+  const reduced = companies.reduce((all, company) => all.concat(company.games), []);
+  return reduced;
 };
 
 // PROVINCE TOOLTIP
