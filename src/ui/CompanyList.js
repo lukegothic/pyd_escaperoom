@@ -6,7 +6,6 @@ function CompanyList({ groupMethod, companies, province, activeCompany, setActiv
     companyList.sort(groupMethod.sortfn);
     const groups = [...new Set(companyList.map(groupMethod.groupField))];
     groups.sort(groupMethod.sortgroup);
-    console.log(groups);
     return <div className="company-list">
         { groups.map((g, i) => <CompanyGroup key={`group-${i}`} group={g} interjeccion={groupMethod.interjeccion} companies={companyList.filter(c => groupMethod.matcher(c, g))} activeCompany={activeCompany} setActiveCompany={setActiveCompany} userGames={userGames} setUserGames={setUserGames} />) }
     </div>;

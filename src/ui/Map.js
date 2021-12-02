@@ -100,7 +100,7 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
     province = province || findProvince(activeProvince);
     userGames = userGames || mapData.userGames;
     markerLayerRef.current.clearLayers();
-    if (province.properties.companies) {
+    if (province && province.properties.companies) {
       province.properties.companies.forEach(company => {
         const [tooltip, icon] = CompanyTooltipAndIcon(company, userGames);
         L.marker(L.latLng(company.latitude, company.longitude), {
@@ -190,7 +190,7 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
       if (mapData) {
         // REGENEARAR ESTILO PROVINCIA
         limitLayerRef.current.setStyle(provinceLayerStyle);
-        // TODO: REGENERAR ESTILO MARKERS
+        // REGENERAR ESTILO MARKERS
         generateMarkers({ userGames });
       }
     }, 

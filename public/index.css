@@ -66,7 +66,7 @@ background-image:
     display: inline-block;
     outline: 0;
     appearance: none;
-    padding: 0px 12px;
+    padding: 0px 8px;
     border-radius: 4px;
     text-decoration: none;
     cursor: pointer;
@@ -117,7 +117,7 @@ background-image:
     width: 30%;
     padding: 5px;
     display: flex;
-    gap: 8px;
+    gap: 5px;
 }
 
 .panel-filter > * {
@@ -135,7 +135,18 @@ background-image:
     font-size: 18px;
 }
 
-.company-list {
+.game-group {
+    border: 3px solid #516178;
+    background-color: #fefefe;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: all 250ms cubic-bezier(.77,0,.175,1);
+    transform-origin: center;
+    padding: 5px;
+}
+
+.company-list, .game-list {
     overflow-y: auto;
     overflow-x: hidden;
     height: calc(100% - 40px);
@@ -196,6 +207,7 @@ background-image:
 }
 
 .label-radio-cool label {
+    font-size: 12px;
     display: block;
     border: 2px solid #516178;
     border-radius: 5px;
