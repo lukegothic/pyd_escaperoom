@@ -33,5 +33,7 @@ jobs:
       run: npm ci            
     - name: 🔨 Build Project
       run: npm run-script build
+      env:
+        CI: false
     - name: 🕵️ Unit Tests
       run: npm test
