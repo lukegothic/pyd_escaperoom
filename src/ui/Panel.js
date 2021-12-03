@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CompanyList from "./CompanyList";
 import FilterPanel from "./FilterPanel";
 import { GetCompanyRooms } from "./functions/CompanyHelpers";
@@ -8,7 +8,6 @@ const getCompanyRating = (c) => c.rating ? c.rating : "ninguna review";
 const getGameMinPlayers = (g) => g.minGamer ? g.minGamer : g.maxGamer;
 const getGameTheme = (g) => g.themes && g.themes.length > 0 ? g.themes[0].name.es : "(sin temática)";
 
-// TODO: por estado (agregar datos usuario y compania a GAMES)
 const groupingMethods = [{
       id: "provincia",
       type: "company",
@@ -52,7 +51,7 @@ const groupingMethods = [{
 
     sortfn: (g1, g2) => g1.sort_rating > g2.sort_rating ? -1 : 1,
     groupField: (g) => g.rating ? g.rating : "ninguna review",
-    matcher: (c, value) => c.rating === value || !c.rating && value === "ninguna review"
+    matcher: (g, value) => getCompanyRating(g) === value
   }, {
     id: "tematica",
     type: "game",
@@ -69,6 +68,10 @@ const groupingMethods = [{
 
 function Panel({ companies, userGames, setUserGames, activeCompany, setActiveCompany, activeProvince }) {
   const [groupMethod, setGroupMethod] = useState(groupingMethods[0]);
+  useEffect(() => {
+    const list = document.querySelector(".company-list, .game-list");
+    list && (list.scrollTop = 0);
+  }, [groupMethod]);
   return <div className="panel">
     <FilterPanel groupingMethods={groupingMethods} groupMethod={groupMethod} setGroupMethod={setGroupMethod} />
     {companies && groupMethod.type === "company" && <CompanyList groupMethod={groupMethod} companies={companies} province={activeProvince} activeCompany={activeCompany} setActiveCompany={setActiveCompany} userGames={userGames} setUserGames={setUserGames} />}

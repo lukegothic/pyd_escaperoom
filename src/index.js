@@ -6,8 +6,7 @@ import Wrapper from "./ui/Wrapper";
 import EscapeRoomRepository from "./repositories/EscapeRoomRepository";
 import { getRooms } from "./repositories/UserGamesRepository";
 import MapHud from "./ui/MapHud";
-import { padLeft, padRight } from "./ui/functions/utils";
-//import {ThemeProvider} from "styled-components"
+import { padLeft } from "./ui/functions/utils";
 
 function App() {
     const [companies, setCompanies] = useState(null);
@@ -36,7 +35,7 @@ function App() {
             setActiveCompany={setActiveCompany}
             activeProvince={activeProvince}
             setActiveProvince={setActiveProvince} />
-        { userGames && companies && <MapHud companies={companies} userGames={userGames} /> }
+        { userGames && companies && <MapHud companies={companies} userGames={userGames} activeProvince={activeProvince} setActiveProvince={setActiveProvince} /> }
         { <Panel
             companies={companies}
             userGames={userGames}
