@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "keywords": [],
-  "homepage": "",
+  "homepage": "./",
   "main": "index.js",
   "dependencies": {
     "crypto-js": "^4.1.1",
