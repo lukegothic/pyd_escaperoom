@@ -267,7 +267,7 @@ progress[value]::-webkit-progress-value {
 
 .company-game {
     display: grid;
-    grid-template-columns: 1fr 120px 68px 120px;
+    grid-template-columns: 1fr 120px 76px 120px;
     height: 22px;
 }
 
