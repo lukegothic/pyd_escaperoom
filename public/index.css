@@ -280,7 +280,7 @@ progress[value]::-webkit-progress-value {
 }
 
 .label-radio-cool input[type="radio"]:checked + label {
-    border-color: #373f70; 
+    border-color: #444; 
 }
 
 .label-radio-cool input[type="radio"]:checked + label.label-status-selector-0 {
@@ -303,6 +303,10 @@ progress[value]::-webkit-progress-value {
     display: grid;
     grid-template-columns: 1fr 120px 76px 120px;
     height: 22px;
+}
+.company-game:hover {
+    background: #c3c3f9;
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(195,195,249,1) 5%, rgba(255,255,255,1) 100%);
 }
 
 .game-name {
