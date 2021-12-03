@@ -32,8 +32,6 @@ jobs:
     - name: 💥 Install Dependencies
       run: npm ci            
     - name: 🔨 Build Project
-      run: CI=false npm run-script build
-      env:
-        CI: false
+      run: npm run-script build
     - name: 🕵️ Unit Tests
       run: npm test
