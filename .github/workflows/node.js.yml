@@ -35,3 +35,13 @@ jobs:
       run: npm run-script build
     - name: 🕵️ Unit Tests
       run: npm test
+    - name: List output files
+      run: find build/ -print
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.1.0
+      with:
+        server: sftp://access782277410.webspace-data.io/escaperooms/
+        username: u97215176-petirrojo
+        password: ${{ secrets.PYD_SECRET }}
+        local-dir: build/      
+        git-ftp-args: --insecure # if your certificate is setup correctly this can be removed (see known-hosts argument) 
