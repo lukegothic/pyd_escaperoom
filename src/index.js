@@ -7,8 +7,11 @@ import EscapeRoomRepository from "./repositories/EscapeRoomRepository";
 import { getRooms } from "./repositories/UserGamesRepository";
 import MapHud from "./ui/MapHud";
 import { padLeft } from "./ui/functions/utils";
+import UserPreferencesRepository from "./repositories/UserPreferencesRepository";
 
 function App() {
+    const up = UserPreferencesRepository.get();
+    // TODO: restaurar preferencias usuario (provincia y agrupacion)
     const [companies, setCompanies] = useState(null);
     const [activeProvince, setActiveProvince] = useState(null);
     const [activeCompany, setActiveCompany] = useState(null);
@@ -27,6 +30,9 @@ function App() {
         })();
     }, []);
 
+    useEffect(() => {
+        UserPreferencesRepository.set({ provincia: activeProvince });
+    }, [activeProvince]);
     return <Wrapper>
         <Map
             mapData={mapData}

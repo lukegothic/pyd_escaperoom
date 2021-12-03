@@ -169,6 +169,7 @@ progress[value]::-webkit-progress-value {
     color: #fff;
     font-family: Open Sans Condensed,sans-serif;
     font-size: 18px;
+    text-shadow: 1px 1px 2px #000;
 }
 
 .game-group {
