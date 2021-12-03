@@ -7,14 +7,12 @@ function UserSummary({ companies, userGames }) {
     const availableRooms = GameCount(companies);
     const doneRooms = DoneRooms(userGames);
     const wantToPlayRooms = WantToPlayRooms(userGames);
-    //const finishedRooms = FinishedEscapeRoom(userGames);
-    //{userGames && doneRooms.length > 0 && <p>Hemos hecho  juegos  y salido de {finishedRooms.length} de ellas ({Math.round((finishedRooms.length/doneRooms.length)*100)}%).</p>}
-    return <div style={{ position:"absolute", zIndex: 1000, right: "42%", top: "5px", width: "15%" }}>
-        <div style={{ position:"relative" }}>
+    return <div>
+        <div style={{ position:"relative", width: "250px" }}>
             <progress className="progress-bar" value={doneRooms.length} max={availableRooms}></progress>
             <span className="progress-label">{doneRooms.length} / {availableRooms} ({Math.round((doneRooms.length / availableRooms)*100)}%)</span>
         </div>
-        <div style={{ position:"relative", width: "100%", textAlign: "right" }}>
+        <div style={{ position:"relative" }}>
             <span className="wanttoplay-heart">{EscapeRoomStatusIcon[EscapeRoomStatus.WANT_TO_PLAY]}</span>
             <span className="wanttoplay-label">{wantToPlayRooms.length}</span>
         </div>

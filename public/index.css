@@ -18,12 +18,24 @@ html, body {
     --star-color: #666;
     --star-background: #fc0;
 }
-/*
-img .leaflet-marker-icon[title] {
-    font-family: 'Courier New', Courier, monospace;
+
+.font-small {
+    font-family: Open Sans Condensed,sans-serif;
+    font-size: 12px;
 }
-*/
-/* https://css-tricks.com/html5-progress-element/ */
+.valign-top {
+    vertical-align: text-top;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+    transition: all 250ms ease-in-out;
+}
+a:hover {
+    color: blue;
+}
+
 progress[value] {
     -webkit-appearance: none;
     appearance: none;
@@ -41,15 +53,29 @@ progress[value]::-webkit-progress-bar {
   }
 
 progress[value]::-webkit-progress-value {
-background-image:
+    background-image:
         -webkit-linear-gradient(top, 
                                 rgba(255, 255, 255, .25), 
                                 rgba(0, 0, 0, .25)),
         -webkit-linear-gradient(left, rgb(0, 177, 30), rgb(0, 177, 30));
-
     border-radius: 2px; 
     background-size: 35px 40px, 100% 100%, 100% 100%;
 }
+
+.map-reset-button {
+    position: absolute;
+    top: 0;
+    right: 113%;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px #000;
+    cursor: pointer;
+    width: 230px;
+    text-align: center;
+}
+
 .stars {
     --percent: calc(var(--rating) / 5 * 100%);
     display: inline-block;
@@ -249,15 +275,19 @@ background-image:
     font-family: Open Sans Condensed,sans-serif;
     font-size: 14px;
 }
-.game-status-0 {
-    color: #000;
+.game-themes {
+    font-style: italic;
 }
 
-.game-status-1 {
+.game-status-0 a {
+    /*color: #000;*/
+}
+
+.game-status-1 a {
     color: #007f00;
 }
 
-.game-status-2 {
+.game-status-2 a {
     color: #7f007f;
 }
 
@@ -290,6 +320,9 @@ background-image:
 }
 
 .wanttoplay-heart {
+    top: 0;
+    right: 0;
+    position: absolute;
     font-size: 32px;
 }
 
@@ -303,20 +336,4 @@ background-image:
     line-height: 32px;
     color: #fff;
     text-shadow:0 0 3px #000, 0 0 1px #000;
-}
-.font-small {
-    font-family: Open Sans Condensed,sans-serif;
-    font-size: 12px;
-}
-.valign-top {
-    vertical-align: text-top;
-}
-
-a {
-    text-decoration: none;
-    color: #000;
-    transition: all 250ms ease-in-out;
-}
-a:hover {
-    color: blue;
 }

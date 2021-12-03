@@ -43,7 +43,8 @@ const province_colors = {
   want_to_play: "#7f007f"
 };
 
-
+const mapCenter = [40.1, -2.5737];
+const mapZoom = 6;
 
 function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvince, setActiveProvince }) {
   const [mapProvince, setMapProvince] = useState(null);
@@ -51,8 +52,8 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
   const mapRef = useRef(null);
   useEffect(() => {
     mapRef.current = L.map("map", {
-      center: [40.1, -2.5737],
-      zoom: 6,
+      center: mapCenter,
+      zoom: mapZoom,
       layers: [
         L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
           attribution:
@@ -122,15 +123,21 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
   };
 
   const focusMap = ({ province, company }) => {
-    province = province || company.city.province.id;
-    if (province !== mapProvince) {
-      setMapProvince(province);
-      const myProvince = findProvince(province);
-      mapRef.current.fitBounds(L.geoJSON(myProvince).getBounds());
-      generateMarkers({ province: myProvince });
-    }
-    if (company) {
-      mapRef.current.setView(L.latLng(company.latitude, company.longitude), Math.max(mapRef.current.getZoom(), 14));
+    province = province || (company && company.city.province.id);
+    if (province) {
+      if (province !== mapProvince) {
+        setMapProvince(province);
+        const myProvince = findProvince(province);
+        mapRef.current.fitBounds(L.geoJSON(myProvince).getBounds());
+        generateMarkers({ province: myProvince });
+      }
+      if (company) {
+        mapRef.current.setView(L.latLng(company.latitude, company.longitude), Math.max(mapRef.current.getZoom(), 16));
+      }
+    } else {
+      setMapProvince(null);
+      markerLayerRef.current.clearLayers();
+      mapRef.current.setView(mapCenter, mapZoom);
     }
   }
 
@@ -139,7 +146,7 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
   }, []);
 
   useEffect(() => {
-    activeProvince && focusMap({ province: activeProvince });
+    focusMap({ province: activeProvince });
   }, [activeProvince]);
 
   useEffect(() => {

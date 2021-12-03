@@ -60,9 +60,8 @@ export const CompanyTooltipAndIcon = (company, userGames) => {
   const allPlayed = company_x_userGames.games.every(isPlayedGame);
   //const longestNameLength = company_x_userGames.games.reduce((max, g) => Math.max(max, g.name.es.length), 0);
   const roomNumIcon = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"];
-
   return [
-    `🧩 ${company_x_userGames.name.toUpperCase()} ${"🏴".repeat(playedGamesCount)}${"🏳️".repeat(company_x_userGames.games.length - playedGamesCount)}\n${company_x_userGames.games.map((g, i) => `${roomNumIcon[i]} ${g.user ? EscapeRoomStatusIcon[g.user.status] : EscapeRoomStatusIcon[EscapeRoomStatus.NOT_PLAYED]} ${g.name.es}`).join("\n")}`,
+    `🧩 ${`${company_x_userGames.name}`.toUpperCase()} ${"🏴".repeat(playedGamesCount)}${"🏳️".repeat(company_x_userGames.games.length - playedGamesCount)}\n${company_x_userGames.games.map((g, i) => `${roomNumIcon[i]} ${g.user ? EscapeRoomStatusIcon[g.user.status] : EscapeRoomStatusIcon[EscapeRoomStatus.NOT_PLAYED]} ${g.name.es}`).join("\n")}`,
     allPlayed ? "all_played" : (hasWantToPlay ? "want_to_play" : (playedGamesCount > 0 ? "some_played" : "none_played"))
   ];
 };

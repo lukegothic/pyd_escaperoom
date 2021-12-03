@@ -1,4 +1,3 @@
-// TODO:
 // PARTE 1: MAPA
 - [x] 1.1 mapa españa
 - [x] 1.2 provincias (vision pajaro) + simbología
