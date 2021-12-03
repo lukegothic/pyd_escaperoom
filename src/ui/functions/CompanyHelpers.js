@@ -3,6 +3,7 @@ import EscapeRoomStatus, { EscapeRoomStatusIcon } from '../../domains/EscapeRoom
 // helpers
 const isPlayedGame = g => g.user && g.user.status === EscapeRoomStatus.PLAYED;
 const isWantedGame = g => g.user && g.user.status === EscapeRoomStatus.WANT_TO_PLAY;
+const isNotWantedGame = g => g.user && g.user.status === EscapeRoomStatus.DONT_WANT_TO_PLAY;
 
 // JOIN COMPANY CON PROVINCIA (reverse dato company.city.province.id hacia arriba)
 export const CompanyXProvince = (all) => {
@@ -56,12 +57,13 @@ export const FindCompany = (all, id) => all.find(c => c.id === id);
 export const CompanyTooltipAndIcon = (company, userGames) => {
   const company_x_userGames = JoinCompaniesWithUserGames(company, userGames);
   const playedGamesCount = company_x_userGames.games.filter(isPlayedGame).length;
+  const notWantToPlayCount = company_x_userGames.games.filter(isNotWantedGame).length;
   const hasWantToPlay = company_x_userGames.games.some(isWantedGame);
-  const allPlayed = company_x_userGames.games.every(isPlayedGame);
+  const allPlayed = company_x_userGames.games.every((g => isPlayedGame(g) || isNotWantedGame(g)));
   //const longestNameLength = company_x_userGames.games.reduce((max, g) => Math.max(max, g.name.es.length), 0);
   const roomNumIcon = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"];
   return [
-    `🧩 ${`${company_x_userGames.name}`.toUpperCase()} ${"🏴".repeat(playedGamesCount)}${"🏳️".repeat(company_x_userGames.games.length - playedGamesCount)}\n${company_x_userGames.games.map((g, i) => `${roomNumIcon[i]} ${g.user ? EscapeRoomStatusIcon[g.user.status] : EscapeRoomStatusIcon[EscapeRoomStatus.NOT_PLAYED]} ${g.name.es}`).join("\n")}`,
+    `🧩 ${`${company_x_userGames.name}`.toUpperCase()} ${"🏴".repeat(playedGamesCount)}${"🏳️".repeat(company_x_userGames.games.length - playedGamesCount - notWantToPlayCount)}\n${company_x_userGames.games.map((g, i) => `${roomNumIcon[i]} ${g.user ? EscapeRoomStatusIcon[g.user.status] : EscapeRoomStatusIcon[EscapeRoomStatus.NOT_PLAYED]} ${g.name.es}`).join("\n")}`,
     allPlayed ? "all_played" : (hasWantToPlay ? "want_to_play" : (playedGamesCount > 0 ? "some_played" : "none_played"))
   ];
 };
@@ -78,6 +80,14 @@ export const GamePlayedCount = (companies, userGames) => {
   const allgames = GetCompanyRooms(companies_x_userGames);
   return allgames.reduce((sum, item) => sum + (item.user && item.user.status === EscapeRoomStatus.PLAYED ? 1 : 0), 0);
 };
+// NUMERO DE ROOMS NO QUEREMOS JUGAR EN ARRAY DE COM;PANMIES
+export const GameNotWantToPlayCount = (companies, userGames) => {
+  Array.isArray(companies) || (companies = [companies]);
+  const companies_x_userGames = JoinCompaniesWithUserGames(companies, userGames);
+  const allgames = GetCompanyRooms(companies_x_userGames);
+  return allgames.reduce((sum, item) => sum + (item.user && item.user.status === EscapeRoomStatus.DONT_WANT_TO_PLAY ? 1 : 0), 0);
+};
+
 // HAY ALGUNA COMPANY CON SALA WANT TO PLAY?
 export const HasWantToPlay = (companies, userGames) => {
     Array.isArray(companies) || (companies = [companies]);
