@@ -38,9 +38,18 @@ jobs:
     - name: List output files
       run: find build/ -print
     - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.1.0
+      #uses: SamKirkland/FTP-Deploy-Action@4.1.0
+      #with:
+        #server: access782277410.webspace-data.io/escaperooms/
+        #username: u97215176-petirrojo
+        #password: ${{ secrets.PYD_SECRET }}
+        #local-dir: build/    
+    #- name: FTP-Deploy-Action
+      uses: SamKirkland/FTP-Deploy-Action@3.1.1
       with:
-        server: access782277410.webspace-data.io/escaperooms/
-        username: u97215176-petirrojo
-        password: ${{ secrets.PYD_SECRET }}
-        local-dir: build/      
+        ftp-server: sftp://access782277410.webspace-data.io/escaperooms/
+        ftp-username: u97215176-petirrojo
+        ftp-password: ${{ secrets.COMMUNITY_PYD_FTP_SECRET }}
+        ftp-password: ${{ secrets.PYD_SECRET }}
+        local-dir: build/ 
+        git-ftp-args: --insecure # if your certificate is setup correctly this can be removed (see known-hosts argument)           
