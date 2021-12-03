@@ -26,6 +26,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run-script build
-    - run: npm test
+
+    - name: 🚚 Upgrade NPM
+      run: npm install -g npm  
+    - name: 💥 Install Dependencies
+      run: npm ci            
+    - name: 🧹 Linting
+      run: npm run lint
+    - name: 🔨 Build Project
+      run: npm run-script build
+    - name: 🕵️ Unit Tests
+        run: npm test
