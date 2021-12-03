@@ -4,7 +4,7 @@ import GameGroup from "./GameGroup";
 
 function GameList({ games, province, groupMethod, activeCompany, setActiveCompany, userGames, setUserGames }) {
     const gameList = games.filter(game => !province || game.company.city.province.id === province);
-    gameList.forEach(game => game.status = getGameStatus(game, userGames));
+    gameList.forEach(game => game.userStatus = getGameStatus(game, userGames));
     gameList.sort(groupMethod.sortfn);
     const groups = [...new Set(gameList.map(groupMethod.groupField))];
     groups.sort(groupMethod.sortgroup);

@@ -291,6 +291,10 @@ progress[value]::-webkit-progress-value {
     color: #7f007f;
 }
 
+.game-status-3 a {
+    color: #931616;
+}
+
 .game-players {
     text-align: left;
     font-size: 14px;
