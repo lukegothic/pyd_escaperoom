@@ -37,7 +37,7 @@ jobs:
       run: npm test
     - name: List output files
       run: find build/ -print
-    - name: 📂 Sync files
+    - name: 🚀 Sync files
       uses: SamKirkland/FTP-Deploy-Action@3.1.1
       with:
         ftp-server: sftp://access782277410.webspace-data.io/escaperooms/
