@@ -249,7 +249,6 @@ progress[value]::-webkit-progress-value {
     display: block;
     border: 2px solid #516178;
     border-radius: 5px;
-    background-color: #516178;
     width: 32px;
     padding: 1px 5px;
     text-align: center;
@@ -260,9 +259,44 @@ progress[value]::-webkit-progress-value {
     transition: all 250ms ease-in-out;
 }
 
+.label-radio-cool .label-status-selector-0 {
+    background-color: #d8d8d8;
+    border-color: #d8d8d8;
+}
+
+.label-radio-cool .label-status-selector-1 {
+    background-color: #b4ccb4;
+    border-color: #b4ccb4;
+}
+
+.label-radio-cool .label-status-selector-2 {
+    background-color: #c9bac9;
+    border-color: #c9bac9;
+}
+
+.label-radio-cool .label-status-selector-3 {
+    background-color: #c7aaaa;
+    border-color: #c7aaaa;
+}
+
 .label-radio-cool input[type="radio"]:checked + label {
-    border: solid 2px #303a48;
-    background-color: #8799b1;
+    border-color: #373f70; 
+}
+
+.label-radio-cool input[type="radio"]:checked + label.label-status-selector-0 {
+    background-color: #5d5d5d;
+}
+
+.label-radio-cool input[type="radio"]:checked + label.label-status-selector-1 {
+    background-color: #00c900;
+}
+
+.label-radio-cool input[type="radio"]:checked + label.label-status-selector-2 {
+    background-color: #c100c1;
+}
+
+.label-radio-cool input[type="radio"]:checked + label.label-status-selector-3 {
+    background-color: #dc1c1c;
 }
 
 .company-game {

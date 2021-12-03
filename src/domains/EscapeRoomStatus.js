@@ -6,6 +6,6 @@ const EscapeRoomStatus = {
 };
 
 export const EscapeRoomStatusText = ["no hemos jugado", "hemos jugado", "queremos jugar", "no queremos jugar"];
-export const EscapeRoomStatusIcon = ["❔", "✅", "💖", "🗑️"];
+export const EscapeRoomStatusIcon = ["❔", "✔️", "💖", "🗑️"];
 
 export default EscapeRoomStatus;

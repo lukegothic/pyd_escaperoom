@@ -33,7 +33,7 @@ function GameDetail({ game, userGames, setUserGames }) {
                                         type="radio"
                                         name={game.id}
                                         onChange= {() => updateRoom(game.id, statusKey).then(() => setUserGames({ ...userGames, [game.id]: { status: EscapeRoomStatus[status], finished: true } }))} />
-                                    <label htmlFor={id} title={EscapeRoomStatusText[statusKey]}>{EscapeRoomStatusIcon[statusKey]}</label>
+                                    <label htmlFor={id} title={EscapeRoomStatusText[statusKey]} className={`label-status-selector-${statusKey}`}>{EscapeRoomStatusIcon[statusKey]}</label>
                                 </div>;
                     }
                 )}
