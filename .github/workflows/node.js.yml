@@ -36,4 +36,4 @@ jobs:
     - name: 🔨 Build Project
       run: npm run-script build
     - name: 🕵️ Unit Tests
-        run: npm test
+      run: npm test
