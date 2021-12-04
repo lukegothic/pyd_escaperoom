@@ -32,6 +32,7 @@ export const updateRoom = async (gameID, gameStatus) => {
     const db = getDatabase();
     set(ref(db, 'games/' + gameID), {
         status: gameStatus,
+        // TODO: llevar cuenta de escapes terminados / no terminados
         finished: true
     });
 };
