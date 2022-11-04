@@ -26,7 +26,6 @@ function App() {
             setCompanies(companies);
             setUserGames(dbUserGames);
             setMapData({ companies, userGames: dbUserGames });
-            console.log(companies, dbUserGames);
         })();
     }, []);
 

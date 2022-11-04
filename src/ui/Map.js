@@ -148,7 +148,6 @@ function Map({ mapData, userGames, activeCompany, setActiveCompany, activeProvin
   }, []);
 
   useEffect(() => {
-    console.log(activeProvince);
     focusMap({ province: activeProvince });
   }, [activeProvince]);
 
