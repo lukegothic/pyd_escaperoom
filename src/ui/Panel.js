@@ -4,12 +4,14 @@ import CompanyList from "./CompanyList";
 import FilterPanel from "./FilterPanel";
 import { GetCompanyRooms } from "./functions/CompanyHelpers";
 import GameList from "./GameList";
+import { sortBy } from "../_functions/arrays";
 
 const getCompanyRating = (c) => c.rating ? c.rating : "ninguna review";
 const getGameMinPlayers = (g) => g.minGamer ? g.minGamer : g.maxGamer;
 const getGameTheme = (g) => g.themes && g.themes.length > 0 ? g.themes[0].name.es : "(sin temática)";
 const SortedStatus = [1, 2, 3, 0];
 
+// TODO: redo con sortBy
 const groupingMethods = [{
       id: "provincia",
       type: "company",

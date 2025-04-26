@@ -14,7 +14,8 @@ TODO (priorizado)
 - Meter métricas (veces que se agrupa por cada grupo..., etc)
 - Features que pueden ser interesantes:
 -- Google Auth y usar usuario para guardar los datos de cada usuario en firebase
--- Estado [?] equivale a null en db => borrar fila
+-- Estado [?] equivale a null en db => borrar filaç
+
 -- Meter publi
 -- Ranking candaditis // nuestro review por sala + fecha juego + nuestro review de master? => tener db de masters tb?
 -- TOP 3
@@ -22,3 +23,4 @@ TODO (priorizado)
 -- Buscador salas y juegos (incluir ciudad?)
 -- El mejor de cada ciudad? Top 3?
 -- Dificultad
+

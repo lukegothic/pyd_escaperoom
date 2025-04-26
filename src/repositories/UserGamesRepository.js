@@ -23,14 +23,14 @@ console.log("Connected to Firebase DDBB", app.name);
 
 export const getRooms = async () => {
     const db = getDatabase();
-    const userGames = ref(db, 'games');
+    const userGames = ref(db, 'prod');
     const data = await get(userGames);
     return data.val();
 };
 
 export const updateRoom = async (gameID, gameStatus) => {
     const db = getDatabase();
-    set(ref(db, 'games/' + gameID), {
+    set(ref(db, 'prod/' + gameID), {
         status: gameStatus,
         // TODO: llevar cuenta de escapes terminados / no terminados
         finished: true

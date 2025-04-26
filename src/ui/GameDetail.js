@@ -19,8 +19,7 @@ const iconByTheme = {
 function GameDetail({ game, userGames, setUserGames }) {
     const userGameStatus = getGameStatus(game, userGames);
     return <div className="company-game">
-                <div className={`game-name game-status-${userGameStatus}`}><a href={`https://www.escaperoomlover.com/es/juego/${game.id}`} target="_blank" rel="noopener noreferrer" title="clic para visitar el juego en ERL">🧩 {game.name.es}</a></div>
-                <div className="game-themes" title={game.themes.map(t => t.name.es).join(",")}>{game.themes.map(t => `${iconByTheme[t.name.es]}`).join(" ")}</div>
+                <div className={`game-name game-status-${userGameStatus}`}><a href={`https://www.escaperoomlover.com/es/juego/${game.id}`} target="_blank" rel="noopener noreferrer" title="clic para visitar el juego en ERL"><span className="game-themes" title={game.themes.map(t => t.name.es).join(",")}>{game.themes.map(t => `${iconByTheme[t.name.es]}`).join(" ")}</span> <span>{game.name.es}</span></a></div>
                 <div className="game-players">{`👫 ${game.minGamer ? game.minGamer + "-" : ""}${game.maxGamer}` }</div>
                 <div className="game-status">
                     {Object.keys(EscapeRoomStatus).map(status => {

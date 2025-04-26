@@ -11,6 +11,7 @@ const EscapeRoomRepository = {
         const json = await response.json();
         */
         const d = ERLDecrypter.decrypt(escape_rooms);
+        console.log(d);
         return JSON.parse(d);
     }
 }
